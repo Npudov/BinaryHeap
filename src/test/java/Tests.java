@@ -73,4 +73,26 @@ public class Tests {
          binaryHeap.contains(25);
       });
    }
+
+   @Test
+   void outInArray() {
+      binaryHeap.clearHeap();
+      binaryHeap.adder(25);
+      binaryHeap.adder(3);
+      binaryHeap.adder(27);
+      String expectedStr = "3 25 27";
+      assertEquals(expectedStr, binaryHeap.outInArray());
+   }
+
+   @Test
+   void outInHeap() {
+      binaryHeap.clearHeap();
+      binaryHeap.adder(25);
+      binaryHeap.adder(3);
+      binaryHeap.adder(27);
+      String expectedStr = "3 \n" +
+                              "25 27";
+      assertEquals(expectedStr.replaceAll("\n", " ").trim(), binaryHeap.outInHeap().replaceAll("\n", " ").trim());
+      //assertTrue(expectedStr.trim().equals(binaryHeap.outInHeap()));
+   }
 }

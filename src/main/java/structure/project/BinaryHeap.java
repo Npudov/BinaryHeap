@@ -6,12 +6,8 @@ import java.util.List;
 public class BinaryHeap {
 
     private List<Integer> heap = new ArrayList<Integer>();
-    //int nheap; //размер нашей кучи - то кол-во элементов, которое находится в данный момент в куче
-    //List<Integer> a = new ArrayList<Integer>(); // список для временного хранения данных(для примеров работы с кучей)
-
-    /*public BinaryHeap(List<Integer> heap) {
-        this.heap = heap;
-    }*/
+    //int heapSize; //размер нашей кучи - то кол-во элементов, которое находится в данный момент в куче
+    //List<Integer> list = new ArrayList<Integer>(); // список для временного хранения данных(для примеров работы с кучей)
 
     public List<Integer> getHeap() {
         return heap;
@@ -74,22 +70,29 @@ public class BinaryHeap {
         return false;
     }
 
-    public void outInArray() {
+    public String outInArray() {
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < heap.size(); i++) {
-            System.out.print(heap.get(i));
+            stringBuilder.append(heap.get(i)).append(" ");
+            //System.out.print(heap.get(i) + " ");
         }
+        return stringBuilder.toString().trim();
     }
 
-    public void outInHeap() {
+    public String outInHeap() {
+        StringBuilder stringBuilder = new StringBuilder();
         int index = 1;
         int i = 0;
         while (i < heap.size()) {
             while (i < index && i < heap.size()) {
-                System.out.print(heap.get(i) + ' ');
+                stringBuilder.append(heap.get(i)).append(" ");
+                //System.out.print(heap.get(i) + " ");
+                i++;
             }
-            i++;
             index = 2 * index + 1;
-            System.out.println();
+            stringBuilder.append("\n");
+            //System.out.println();
         }
+        return stringBuilder.toString().trim();
     }
 }
