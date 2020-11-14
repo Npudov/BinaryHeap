@@ -53,6 +53,38 @@ public class BinaryHeap {
         heap.set(x, temp);
     }
 
+    private void sortOurHeap(List<Integer> list, int size, int i) {
+        int indexLeft = 2 * i + 1;
+        int indexRight = 2 * i + 2;
+        int indexOfMinimum = i;
+        if (indexLeft < size && list.get(indexLeft) < list.get(indexOfMinimum)) {
+            indexOfMinimum = indexLeft;
+        }
+        else if (indexRight < size && list.get(indexRight) < list.get(indexOfMinimum)) {
+            indexOfMinimum = indexRight;
+        }
+
+        if (indexOfMinimum != i) {
+            swap(indexOfMinimum, i);
+            sortOurHeap(list, size, indexOfMinimum);
+        }
+    }
+
+    private void heapfromArray(List<Integer> list, int size) { //преобразуем массив в min-heap
+        for (int i = list.size() - 1; i >= 0; i--) {
+            sortOurHeap(list, size, i);
+        }
+    }
+
+    public void heapSort(List<Integer> list, int size) {
+        heapfromArray(list, size);
+
+        for (int i = list.size() - 1; i >= 0; i--) {
+            swap(0, list.size() - 1);
+            sortOurHeap(list, i, 0);
+        }
+    }
+
     public void clearHeap() {
         heap.clear();
     }
