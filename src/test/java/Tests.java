@@ -59,6 +59,25 @@ public class Tests {
    }
 
    @Test
+   void heapSort() {
+       binaryHeap.clearHeap();
+       List<Integer> sortList = new ArrayList<>();
+       sortList.add(25);
+       sortList.add(2);
+       sortList.add(3);
+       sortList.add(45);
+       sortList.add(20);
+       binaryHeap.heapSort(sortList, sortList.size());
+       List<Integer> expectedList = new ArrayList<>();
+       expectedList.add(45);
+       expectedList.add(25);
+       expectedList.add(20);
+       expectedList.add(3);
+       expectedList.add(2);
+       assertEquals(expectedList, sortList);
+   }
+
+   @Test
    void contains() {
       binaryHeap.clearHeap();
       binaryHeap.adder(25);

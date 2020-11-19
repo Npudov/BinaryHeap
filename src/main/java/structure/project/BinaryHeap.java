@@ -21,7 +21,7 @@ public class BinaryHeap {
     private void bubleUp(int index) {
         int parentIndex = (index - 1) / 2;
         if (index > 0 && (heap.get(index) < heap.get(parentIndex))) {
-            swap(parentIndex, index);
+            swap(heap, parentIndex, index);
             bubleUp(parentIndex);
         }
     }
@@ -41,16 +41,16 @@ public class BinaryHeap {
                 x++;
             }
             if (heap.get(index) > heap.get(x)) {
-                swap(index, x);
+                swap(heap, index, x);
                 bubleDown(x);
             }
         }
     }
 
-    private void swap(int index, int x) {
-        int temp = heap.get(index);
-        heap.set(index, heap.get(x));
-        heap.set(x, temp);
+    private void swap(List<Integer> list, int index, int x) {
+        int temp = list.get(index);
+        list.set(index, list.get(x));
+        list.set(x, temp);
     }
 
     private void sortOurHeap(List<Integer> list, int size, int i) {
@@ -60,17 +60,18 @@ public class BinaryHeap {
         if (indexLeft < size && list.get(indexLeft) < list.get(indexOfMinimum)) {
             indexOfMinimum = indexLeft;
         }
-        else if (indexRight < size && list.get(indexRight) < list.get(indexOfMinimum)) {
+        /*else*/ /*!!!*/ if (indexRight < size && list.get(indexRight) < list.get(indexOfMinimum)) {
             indexOfMinimum = indexRight;
         }
 
         if (indexOfMinimum != i) {
-            swap(indexOfMinimum, i);
+            swap(list, indexOfMinimum, i);
             sortOurHeap(list, size, indexOfMinimum);
         }
     }
 
     private void heapfromArray(List<Integer> list, int size) { //преобразуем массив в min-heap
+        //int startIndex = list.size() / 2 - 1;
         for (int i = list.size() - 1; i >= 0; i--) {
             sortOurHeap(list, size, i);
         }
@@ -80,7 +81,7 @@ public class BinaryHeap {
         heapfromArray(list, size);
 
         for (int i = list.size() - 1; i >= 0; i--) {
-            swap(0, list.size() - 1);
+            swap(list, 0, i);//!!!
             sortOurHeap(list, i, 0);
         }
     }
