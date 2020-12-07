@@ -47,13 +47,13 @@ public class BinaryHeap {
         }
     }
 
-    private void swap(List<Integer> list, int index, int x) {
+    public static void swap(List<Integer> list, int index, int x) {
         int temp = list.get(index);
         list.set(index, list.get(x));
         list.set(x, temp);
     }
 
-    private void sortOurHeap(List<Integer> list, int size, int i) {
+    public static void sortOurHeap(List<Integer> list, int size, int i) {
         int indexLeft = 2 * i + 1;
         int indexRight = 2 * i + 2;
         int indexOfMinimum = i;
