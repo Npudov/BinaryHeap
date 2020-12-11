@@ -49,10 +49,6 @@ public class MyBenchmark {
     public void setup() {
         binaryHeap = createData();
         list = createList();
-        /*linkedList = createLinkedList();*/
-        //searchBinary = createSearchBinary();
-        //searchList = createSearchList();
-        //searchLinkedList = createSearchLinkedList();
     }
 
     @Benchmark
@@ -75,23 +71,11 @@ public class MyBenchmark {
         }
     }
 
-    /*@Benchmark
-    public void addInLinkedList(Blackhole bh) {
-        int listSize = linkedList.size();
-        for (int i = 0; i < listSize; i++) {
-            Integer element = linkedList.get(i);
-            linkedList.add(i);
-            bh.consume(element);
-        }
-    }*/
-
     @Benchmark
     public void searchInBinary(Blackhole bh) {
         int size = binaryHeap.getHeap().size();
         for (int i = 0; i < size; i++) {
-            //int digit = random.nextInt(size);
             Integer element = binaryHeap.search(digit);
-            //searchBinary.search(random.nextInt(size));
             bh.consume(element);
         }
     }
@@ -100,23 +84,10 @@ public class MyBenchmark {
     public void searchInList(Blackhole bh) {
         int listSize = list.size();
         for (int i = 0; i < listSize; i++) {
-            //int digit = random.nextInt(listSize);
             Integer element = list.get(digit);
-            //searchList.get(i);
             bh.consume(element);
         }
     }
-
-    /*@Benchmark
-    public void searchInLinkedList(Blackhole bh) {
-        int listSize = linkedList.size();
-        for (int i = 0; i < listSize; i++) {
-            //int digit = random.nextInt(listSize);
-            Integer element = linkedList.get(digit);
-            //searchList.get(i);
-            bh.consume(element);
-        }
-    }*/
 
     private BinaryHeap createData() {
         BinaryHeap tempBinaryHeap = new BinaryHeap();
@@ -133,37 +104,4 @@ public class MyBenchmark {
         }
         return tempList;
     }
-
-    /*private List<Integer> createLinkedList() {
-        List<Integer> tempList = new LinkedList<>();
-        for (int i = 0; i < N; i++) {
-            tempList.add(random.nextInt(1000 + 1));
-        }
-        return tempList;
-    }*/
-
-    /*private BinaryHeap createSearchBinary() {
-        BinaryHeap tempBinaryHeap = new BinaryHeap();
-        for (int i = 0; i < N; i++) {
-            tempBinaryHeap.adder(i);
-        }
-        return tempBinaryHeap;
-    }
-
-    private List<Integer> createSearchList() {
-        List<Integer> tempList = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            tempList.add(i);
-        }
-        return tempList;
-    }
-
-    private List<Integer> createSearchLinkedList() {
-        List<Integer> tempList = new LinkedList<>();
-        for (int i = 0; i < N; i++) {
-            tempList.add(i);
-        }
-        return tempList;
-    }*/
-
 }
