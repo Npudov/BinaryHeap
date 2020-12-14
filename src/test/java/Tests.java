@@ -135,6 +135,12 @@ public class Tests {
    }
 
    @Test
+   void isEmpty() {
+       binaryHeap.clearHeap();
+       assertTrue(binaryHeap.isEmpty());
+   }
+
+   @Test
    void outInArray() {
       binaryHeap.clearHeap();
       binaryHeap.adder(25);

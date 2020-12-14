@@ -55,7 +55,7 @@ public class MyBenchmark {
     public void add(Blackhole bh) {
         int size = binaryHeap.getHeap().size();
         for (int i = 0; i < size; i++) {
-            Integer element = binaryHeap.getHeap().get(i);
+            Integer element = (Integer) binaryHeap.getHeap().get(i);
             binaryHeap.adder(i);
             bh.consume(element);
         }
@@ -75,7 +75,7 @@ public class MyBenchmark {
     public void searchInBinary(Blackhole bh) {
         int size = binaryHeap.getHeap().size();
         for (int i = 0; i < size; i++) {
-            Integer element = binaryHeap.search(digit);
+            Integer element = (Integer) binaryHeap.search(digit);
             bh.consume(element);
         }
     }

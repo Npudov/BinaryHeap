@@ -1,33 +1,42 @@
 package structure.project;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class BinaryHeap {
+public class BinaryHeap<T extends Comparable<T>> {
 
-    private List<Integer> heap = new ArrayList<Integer>();
+    private List<T> heap = new ArrayList<>();
     //int heapSize; //размер нашей кучи - то кол-во элементов, которое находится в данный момент в куче
     //List<Integer> list = new ArrayList<Integer>(); // список для временного хранения данных(для примеров работы с кучей)
 
-    public List<Integer> getHeap() {
+    public Comparator<? super T> comparator() {
+        return null;
+    }
+
+    private static <T> int compare(T val1, T val2) {
+        return ((Comparable<? super T>) val1).compareTo(val2);
+    }
+
+    public List<T> getHeap() {
         return heap;
     }
 
-    public void adder(int x) {
+    public void adder(T x) {
         heap.add(x);
         bubleUp(heap.size() - 1);
     }
 
     private void bubleUp(int index) {
         int parentIndex = (index - 1) / 2;
-        if (index > 0 && (heap.get(index) < heap.get(parentIndex))) {
+        if (index > 0 && (heap.get(index).compareTo(heap.get(parentIndex)) < 0)) {
             swap(heap, parentIndex, index);
             bubleUp(parentIndex);
         }
     }
 
-    public int deleteMin() {
-        int deleteValue = heap.get(0);
+    public T deleteMin() {
+        T deleteValue = heap.get(0);
         heap.set(0, heap.get(heap.size() - 1));
         heap.remove(heap.size() - 1);
         bubleDown(0); // поскольку при удалении корня нужно менять кучу, то для её восстановления напишем метод
@@ -37,30 +46,30 @@ public class BinaryHeap {
     private void bubleDown(int index) {
         int x = 2 * index + 1;
         if (x < heap.size()) {
-            if (x + 1 < heap.size() && heap.get(x + 1) < heap.get(x)) {
+            if ((x + 1 < heap.size()) && (heap.get(x + 1).compareTo(heap.get(x)) < 0)) {
                 x++;
             }
-            if (heap.get(index) > heap.get(x)) {
+            if (heap.get(index).compareTo(heap.get(x)) > 0) {
                 swap(heap, index, x);
                 bubleDown(x);
             }
         }
     }
 
-    public static void swap(List<Integer> list, int index, int x) {
-        int temp = list.get(index);
+    public static <T> void swap(List<T> list, int index, int x) {
+        T temp = list.get(index);
         list.set(index, list.get(x));
-        list.set(x, temp);
+        list.set(x, (T) temp);
     }
 
-    public static void sortOurHeap(List<Integer> list, int size, int i) {
+    public static <T> void sortOurHeap(List<T> list, int size, int i) {
         int indexLeft = 2 * i + 1;
         int indexRight = 2 * i + 2;
         int indexOfMinimum = i;
-        if (indexLeft < size && list.get(indexLeft) < list.get(indexOfMinimum)) {
+        if ((indexLeft < size) && (compare(list.get(indexLeft), list.get(indexOfMinimum)) < 0)) {
             indexOfMinimum = indexLeft;
         }
-        /*else*/ /*!!!*/ if (indexRight < size && list.get(indexRight) < list.get(indexOfMinimum)) {
+        /*else*/ /*!!!*/ if ((indexRight < size) && (compare(list.get(indexRight), list.get(indexOfMinimum)) < 0)) {
             indexOfMinimum = indexRight;
         }
 
@@ -90,17 +99,21 @@ public class BinaryHeap {
         heap.clear();
     }
 
-    public Integer search(int index) {
+    public T search(int index) {
         if (index >= heap.size()) throw new IndexOutOfBoundsException();
         return heap.get(index);
     }
 
-    public boolean contains(int element) {
+    public boolean contains(T element) {
         if (heap.size() == 0) throw new IllegalStateException("Куча не заполнена, там ничего нет");
         for (int i = 0; i < heap.size(); i++) {
-            if (heap.get(i) == element) return true;
+            if (heap.get(i).compareTo(element) == 0) return true;
         }
         return false;
+    }
+
+    public boolean isEmpty() {
+        return heap.isEmpty();
     }
 
     public String outInArray() {
