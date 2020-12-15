@@ -14,6 +14,10 @@ public class BinaryHeap<T extends Comparable<T>> {
         return null;
     }
 
+    public BinaryHeap() {
+        heap.clear();
+    }
+
     private static <T> int compare(T val1, T val2) {
         return ((Comparable<? super T>) val1).compareTo(val2);
     }
@@ -46,7 +50,7 @@ public class BinaryHeap<T extends Comparable<T>> {
     private void bubleDown(int index) {
         int x = 2 * index + 1;
         if (x < heap.size()) {
-            if ((x + 1 < heap.size()) && (heap.get(x + 1).compareTo(heap.get(x)) < 0)) {
+            if ((x + 1 < heap.size()) && (heap.get(x + 1).compareTo(heap.get(x)) < 0)) { //если наш элемент больше элемента справа
                 x++;
             }
             if (heap.get(index).compareTo(heap.get(x)) > 0) {
