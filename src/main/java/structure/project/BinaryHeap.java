@@ -7,8 +7,6 @@ import java.util.List;
 public class BinaryHeap<T extends Comparable<T>> {
 
     private List<T> heap = new ArrayList<>();
-    //int heapSize; //размер нашей кучи - то кол-во элементов, которое находится в данный момент в куче
-    //List<Integer> list = new ArrayList<Integer>(); // список для временного хранения данных(для примеров работы с кучей)
 
     public Comparator<? super T> comparator() {
         return null;
@@ -39,7 +37,7 @@ public class BinaryHeap<T extends Comparable<T>> {
         }
     }
 
-    public T deleteMin() {
+    public T deleteMin() { //извлечение минимального элемента(находится в корне)
         T deleteValue = heap.get(0);
         heap.set(0, heap.get(heap.size() - 1));
         heap.remove(heap.size() - 1);
@@ -50,10 +48,10 @@ public class BinaryHeap<T extends Comparable<T>> {
     private void bubleDown(int index) {
         int x = 2 * index + 1;
         if (x < heap.size()) {
-            if ((x + 1 < heap.size()) && (heap.get(x + 1).compareTo(heap.get(x)) < 0)) { //если наш элемент больше элемента справа
+            if ((x + 1 < heap.size()) && (heap.get(x + 1).compareTo(heap.get(x)) < 0)) { //если ребёнок справа меньше
                 x++;
             }
-            if (heap.get(index).compareTo(heap.get(x)) > 0) {
+            if (heap.get(index).compareTo(heap.get(x)) > 0) { // если наш элемент больше потомка(правого или левого мы определили ранее), опускаем его
                 swap(heap, index, x);
                 bubleDown(x);
             }
@@ -66,14 +64,14 @@ public class BinaryHeap<T extends Comparable<T>> {
         list.set(x, (T) temp);
     }
 
-    public static <T> void sortOurHeap(List<T> list, int size, int i) {
+    public static <T> void sortOurHeap(List<T> list, int size, int i) { //упорядочивает кучу относительно i вершины
         int indexLeft = 2 * i + 1;
         int indexRight = 2 * i + 2;
         int indexOfMinimum = i;
         if ((indexLeft < size) && (compare(list.get(indexLeft), list.get(indexOfMinimum)) < 0)) {
             indexOfMinimum = indexLeft;
         }
-        /*else*/ /*!!!*/ if ((indexRight < size) && (compare(list.get(indexRight), list.get(indexOfMinimum)) < 0)) {
+        if ((indexRight < size) && (compare(list.get(indexRight), list.get(indexOfMinimum)) < 0)) {
             indexOfMinimum = indexRight;
         }
 
