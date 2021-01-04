@@ -1,10 +1,8 @@
 package structure.project;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
-public class BinaryHeap<T extends Comparable<T>> {
+public class BinaryHeap<T extends Comparable<T>> implements List {
 
     private List<T> heap = new ArrayList<>();
 
@@ -14,6 +12,14 @@ public class BinaryHeap<T extends Comparable<T>> {
 
     public BinaryHeap() {
         heap.clear();
+    }
+
+    public BinaryHeap(List<T> list) {
+        heap.clear();
+        heapfromArray(list, list.size());
+        heap = new ArrayList<>(list);
+        //Collections.copy(heap, list);
+
     }
 
     private static <T> int compare(T val1, T val2) {
@@ -58,13 +64,13 @@ public class BinaryHeap<T extends Comparable<T>> {
         }
     }
 
-    public static <T> void swap(List<T> list, int index, int x) {
+    public void swap(List<T> list, int index, int x) { //менял static
         T temp = list.get(index);
         list.set(index, list.get(x));
         list.set(x, (T) temp);
     }
 
-    public static <T> void sortOurHeap(List<T> list, int size, int i) { //упорядочивает кучу относительно i вершины
+    public void sortOurHeap(List<T> list, int size, int i) { //упорядочивает кучу относительно i вершины //менял static
         int indexLeft = 2 * i + 1;
         int indexRight = 2 * i + 2;
         int indexOfMinimum = i;
@@ -81,14 +87,14 @@ public class BinaryHeap<T extends Comparable<T>> {
         }
     }
 
-    private void heapfromArray(List<Integer> list, int size) { //преобразуем массив в min-heap
+    private void heapfromArray(List<T> list, int size) { //преобразуем массив в min-heap
         //int startIndex = list.size() / 2 - 1;
         for (int i = list.size() - 1; i >= 0; i--) {
             sortOurHeap(list, size, i);
         }
     }
 
-    public void heapSort(List<Integer> list, int size) {
+    public void heapSort(List<T> list, int size) {
         heapfromArray(list, size);
 
         for (int i = list.size() - 1; i >= 0; i--) {
