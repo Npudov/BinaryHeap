@@ -2,7 +2,7 @@ package structure.project;
 
 import java.util.*;
 
-public class BinaryHeap<T extends Comparable<T>> implements List {
+public class BinaryHeap<T extends Comparable<T>> {
 
     private List<T> heap = new ArrayList<>();
 
@@ -16,7 +16,7 @@ public class BinaryHeap<T extends Comparable<T>> implements List {
 
     public BinaryHeap(List<T> list) {
         heap.clear();
-        heapfromArray(list, list.size());
+        heapFromArray(list, list.size());
         heap = new ArrayList<>(list);
         //Collections.copy(heap, list);
 
@@ -32,14 +32,14 @@ public class BinaryHeap<T extends Comparable<T>> implements List {
 
     public void adder(T x) {
         heap.add(x);
-        bubleUp(heap.size() - 1);
+        bubbleUp(heap.size() - 1);
     }
 
-    private void bubleUp(int index) {
+    private void bubbleUp(int index) {
         int parentIndex = (index - 1) / 2;
         if (index > 0 && (heap.get(index).compareTo(heap.get(parentIndex)) < 0)) {
             swap(heap, parentIndex, index);
-            bubleUp(parentIndex);
+            bubbleUp(parentIndex);
         }
     }
 
@@ -87,7 +87,7 @@ public class BinaryHeap<T extends Comparable<T>> implements List {
         }
     }
 
-    private void heapfromArray(List<T> list, int size) { //преобразуем массив в min-heap
+    private void heapFromArray(List<T> list, int size) { //преобразуем массив в min-heap
         //int startIndex = list.size() / 2 - 1;
         for (int i = list.size() - 1; i >= 0; i--) {
             sortOurHeap(list, size, i);
@@ -95,7 +95,7 @@ public class BinaryHeap<T extends Comparable<T>> implements List {
     }
 
     public void heapSort(List<T> list, int size) {
-        heapfromArray(list, size);
+        heapFromArray(list, size);
 
         for (int i = list.size() - 1; i >= 0; i--) {
             swap(list, 0, i);//!!!
@@ -123,7 +123,6 @@ public class BinaryHeap<T extends Comparable<T>> implements List {
     public boolean isEmpty() {
         return heap.isEmpty();
     }
-
     public String outInArray() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < heap.size(); i++) {
